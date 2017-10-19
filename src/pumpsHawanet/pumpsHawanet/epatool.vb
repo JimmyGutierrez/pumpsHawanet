@@ -207,78 +207,12 @@
     Public predefinedDiameters(0) As Double
     Public predefinedRoughness(0) As Double
     Public idLinks(0) As String
-
-
-    Public Function getPressures(ByVal diameters As Double(), ByVal roughness As Double()) As Double()
-
-        SyncLock Main_Form.myLock
-
-            Dim value As Double
-            Dim id As String
-
-            Try
-                For i = 1 To num_links
-                    ENsetlinkvalue(i, EN_DIAMETER, diameters(i))
-                    ENsetlinkvalue(i, EN_ROUGHNESS, roughness(i))
-                Next
-            Catch ex As Exception
-                MessageBox.Show("ERROR: epatool not found links within network ")
-            End Try
-
-            Call ENsolveH()
-
-
-            Dim pressures(num_nodes) As Double
-
-            For i = 1 To num_nodes
-                id = "".PadRight(255, Chr(0))
-                ENgetnodeid(i, id)
-                id = id.Trim(Chr(0))
-                ENgetnodevalue(i, EN_PRESSURE, value)
-
-                ' MessageBox.Show("Node " + id + " Pressure " + CStr(value))
-                pressures(i) = value
-
-            Next
-
-
-            'Call ENclose()
-
-            Return pressures
-        End SyncLock
-
-    End Function
-
-    Public Function getPressuresINP() As Double()
-
-        SyncLock Main_Form.myLock
-
-            Dim value As Double
-            Dim id As String
-
-
-            Call ENsolveH()
-            Dim pressures(num_nodes) As Double
-
-            For i = 1 To num_nodes
-                id = "".PadRight(255, Chr(0))
-                ENgetnodeid(i, id)
-                id = id.Trim(Chr(0))
-                ENgetnodevalue(i, EN_PRESSURE, value)
-
-                pressures(i) = value
-
-            Next
-
-            Return pressures
-        End SyncLock
-
-    End Function
+    Public Shared myLock As Object = New Object()
 
     Sub New(ByVal inpPath As String)
 
         Console.WriteLine("creando objeto epanet")
-        SyncLock Main_Form.myLock
+        SyncLock myLock
 
             Dim inpFound As Boolean = False
             Dim t As Integer = 0
@@ -331,6 +265,34 @@
 
 
     End Sub
+
+    Public Function getPressuresINP() As Double()
+
+        SyncLock myLock
+
+            Dim value As Double
+            Dim id As String
+
+
+            Call ENsolveH()
+            Dim pressures(num_nodes) As Double
+
+            For i = 1 To num_nodes
+                id = "".PadRight(255, Chr(0))
+                ENgetnodeid(i, id)
+                id = id.Trim(Chr(0))
+                ENgetnodevalue(i, EN_PRESSURE, value)
+                Console.WriteLine("El nodo " + id + "tiene una presion de: " + CStr(value))
+
+                pressures(i) = value
+
+            Next
+
+            Return pressures
+        End SyncLock
+
+    End Function
+
     Sub closeEpatool()
         Call ENclose()
     End Sub
