@@ -272,21 +272,35 @@
 
             Dim value As Double
             Dim id As String
+            Dim t As Long
+            Dim tstep As Long = 1
+            Dim j = 0
 
 
-            Call ENsolveH()
+            'Call ENsolveH()
+            Call ENopenH()
             Dim pressures(num_nodes) As Double
+            Call ENinitH(0)
+            Do While tstep > 0
+                Call ENrunH(t)
 
-            For i = 1 To num_nodes
-                id = "".PadRight(255, Chr(0))
-                ENgetnodeid(i, id)
-                id = id.Trim(Chr(0))
-                ENgetnodevalue(i, EN_PRESSURE, value)
-                Console.WriteLine("El nodo " + id + "tiene una presion de: " + CStr(value))
+                If t Mod 3600 = 0 Then
+                    Console.WriteLine("Hora: " + CStr(j))
+                    For i = 1 To num_nodes
+                        id = "".PadRight(255, Chr(0))
+                        ENgetnodeid(i, id)
+                        id = id.Trim(Chr(0))
+                        ENgetnodevalue(i, EN_PRESSURE, value)
+                        Console.WriteLine("El nodo " + id + "tiene una presion de: " + CStr(value))
+                        pressures(i) = value
+                    Next
 
-                pressures(i) = value
+                    j = j + 1
+                End If
+               
+                ENnextH(tstep)
 
-            Next
+            Loop
 
             Return pressures
         End SyncLock

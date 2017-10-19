@@ -18,6 +18,7 @@
         Dim epatoolclas As epatool = New epatool(TextBoxINP.Text)
         Dim presures As Double()
         presures = epatoolclas.getPressuresINP()
+        epatoolclas.closeEpatool()
 
         'For i = 1 To presures.Length - 1
         '    MessageBox.Show(presures(i))
