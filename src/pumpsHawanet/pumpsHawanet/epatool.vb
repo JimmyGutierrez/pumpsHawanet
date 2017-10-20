@@ -209,6 +209,7 @@
     Public idLinks(0) As String
     Dim pumpIndex(0) As Integer
     Public Shared myLock As Object = New Object()
+    Dim testing As Integer() = {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
 
     Sub New(ByVal inpPath As String)
 
@@ -279,10 +280,8 @@
             getIdPumps()
             Dim status As Integer
             For l = 0 To pumpIndex.Length - 1
-                Console.WriteLine(pumpIndex(l))
                 Call ENgetlinkvalue(pumpIndex(l), 11, status)
-                Console.WriteLine("Status: " + CStr(status))
-
+                Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
             Next
 
             'Call ENsolveH()
@@ -293,6 +292,7 @@
                 Call ENrunH(t)
 
                 If t Mod 3600 = 0 Then
+                    Console.WriteLine("")
                     Console.WriteLine("Hora: " + CStr(j))
                     For i = 1 To num_nodes
                         id = "".PadRight(255, Chr(0))
@@ -303,14 +303,16 @@
                         pressures(i) = value
                     Next
 
-                    j = j + 1
+
 
                     For l = 0 To pumpIndex.Length - 1
-                        Console.WriteLine(pumpIndex(l))
-                        Call ENgetlinkvalue(pumpIndex(l), 11, status)
-                        Console.WriteLine("Status: " + CStr(status))
 
+                        '  Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
+                        Call ENsetlinkvalue(pumpIndex(l), 11, testing(j))
+                        Call ENgetlinkvalue(pumpIndex(l), 11, status)
+                        Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
                     Next
+                    j = j + 1
                 End If
 
                 ENnextH(tstep)
