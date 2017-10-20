@@ -279,10 +279,6 @@
             Dim j = 0
             getIdPumps()
             Dim status As Integer
-            For l = 0 To pumpIndex.Length - 1
-                Call ENgetlinkvalue(pumpIndex(l), 11, status)
-                Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
-            Next
 
             'Call ENsolveH()
             Call ENopenH()
