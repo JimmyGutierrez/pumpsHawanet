@@ -207,6 +207,7 @@
     Public predefinedDiameters(0) As Double
     Public predefinedRoughness(0) As Double
     Public idLinks(0) As String
+    Dim pumpIndex(0) As Integer
     Public Shared myLock As Object = New Object()
 
     Sub New(ByVal inpPath As String)
@@ -275,7 +276,14 @@
             Dim t As Long
             Dim tstep As Long = 1
             Dim j = 0
+            getIdPumps()
+            Dim status As Integer
+            For l = 0 To pumpIndex.Length - 1
+                Console.WriteLine(pumpIndex(l))
+                Call ENgetlinkvalue(pumpIndex(l), 11, status)
+                Console.WriteLine("Status: " + CStr(status))
 
+            Next
 
             'Call ENsolveH()
             Call ENopenH()
@@ -296,8 +304,15 @@
                     Next
 
                     j = j + 1
+
+                    For l = 0 To pumpIndex.Length - 1
+                        Console.WriteLine(pumpIndex(l))
+                        Call ENgetlinkvalue(pumpIndex(l), 11, status)
+                        Console.WriteLine("Status: " + CStr(status))
+
+                    Next
                 End If
-               
+
                 ENnextH(tstep)
 
             Loop
@@ -306,6 +321,29 @@
         End SyncLock
 
     End Function
+
+    Sub getIdPumps()
+        Dim code As Integer
+
+        Dim numPump As Integer
+        numPump = 0
+
+        For i = 1 To num_links
+
+            Call ENgetlinktype(i, code)
+
+            If code = 2 Then
+                ReDim Preserve Me.pumpIndex(numPump)
+                pumpIndex(numPump) = i
+                numPump = numPump + 1
+            End If
+        Next
+
+        If numPump = 0 Then
+            MessageBox.Show("Error: There isn't pumps found!")
+        End If
+
+    End Sub
 
     Sub closeEpatool()
         Call ENclose()
