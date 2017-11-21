@@ -300,9 +300,7 @@
                     Next
 
 
-
                     For l = 0 To pumpIndex.Length - 1
-
                         '  Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
                         Call ENsetlinkvalue(pumpIndex(l), 11, testing(j))
                         Call ENgetlinkvalue(pumpIndex(l), 11, status)
