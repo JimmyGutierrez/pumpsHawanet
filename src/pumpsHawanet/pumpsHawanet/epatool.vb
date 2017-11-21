@@ -208,8 +208,10 @@
     Public predefinedRoughness(0) As Double
     Public idLinks(0) As String
     Dim pumpIndex(0) As Integer
+    Dim tankIndex(0) As Integer
     Public Shared myLock As Object = New Object()
-    Dim testing As Integer() = {1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
+    ' Dim testing As Integer() = {0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
+    Dim testing As Integer() = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
     Sub New(ByVal inpPath As String)
 
@@ -277,19 +279,38 @@
             Dim t As Long
             Dim tstep As Long = 1
             Dim j = 0
-            getIdPumps()
+            Call getIdPumps()
+            Call getIdTanks()
             Dim status As Integer
+            Dim water_level As Double
 
             'Call ENsolveH()
             Call ENopenH()
             Dim pressures(num_nodes) As Double
             Call ENinitH(0)
+
+            For l = 0 To pumpIndex.Length - 1
+                Call ENsetlinkvalue(pumpIndex(l), 11, testing(0))
+                Call ENgetlinkvalue(pumpIndex(l), 11, status)
+            Next
+
+
             Do While tstep > 0
                 Call ENrunH(t)
 
                 If t Mod 3600 = 0 Then
+                    Console.WriteLine("t:" + CStr(t))
                     Console.WriteLine("")
                     Console.WriteLine("Hora: " + CStr(j))
+
+
+                    For l = 0 To pumpIndex.Length - 1
+                        '  Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
+                        Call ENsetlinkvalue(pumpIndex(l), 11, testing(j))
+                        Call ENgetlinkvalue(pumpIndex(l), 11, status)
+                        Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
+                    Next
+
                     For i = 1 To num_nodes
                         id = "".PadRight(255, Chr(0))
                         ENgetnodeid(i, id)
@@ -299,13 +320,16 @@
                         pressures(i) = value
                     Next
 
-
-                    For l = 0 To pumpIndex.Length - 1
-                        '  Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
-                        Call ENsetlinkvalue(pumpIndex(l), 11, testing(j))
-                        Call ENgetlinkvalue(pumpIndex(l), 11, status)
-                        Console.WriteLine("Existe una bomba en la posicion: " + CStr(pumpIndex(l)) + ", su estatus es: " + CStr(status))
+                    For k = 0 To tankIndex.Length - 1
+                        id = "".PadRight(255, Chr(0))
+                        ENgetnodeid(tankIndex(k), id)
+                        id = id.Trim(Chr(0))
+                        Call ENgetnodevalue(tankIndex(k), 8, water_level)
+                        Console.WriteLine("El tanke " + id + "tiene un nivel inicial de : " + CStr(water_level))
                     Next
+
+
+
                     j = j + 1
                 End If
 
@@ -337,6 +361,30 @@
 
         If numPump = 0 Then
             MessageBox.Show("Error: There isn't pumps found!")
+        End If
+
+    End Sub
+
+    Sub getIdTanks()
+        Dim type As Integer
+
+        Dim numTank As Integer
+        numTank = 0
+
+        For i = 1 To num_nodes
+
+            Call ENgetnodetype(i, type)
+
+            If type = 2 Then
+
+                ReDim Preserve Me.tankIndex(numTank)
+                tankIndex(numTank) = i
+                numTank = numTank + 1
+            End If
+        Next
+
+        If numTank = 0 Then
+            MessageBox.Show("Error: There isn't tanks found!")
         End If
 
     End Sub
