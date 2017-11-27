@@ -213,7 +213,7 @@
 
     ' Dim testing As Integer() = {0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
     Dim testing As Integer() = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-    Dim maxTank As Double
+
 
     Sub New(ByVal inpPath As String)
 
@@ -272,7 +272,7 @@
 
     End Sub
 
-    Public Function getPressuresINP(ByVal max As Double) As Double()
+    Public Function getPressuresINP(ByVal max As Double, ByVal min As Double) As Double()
 
         SyncLock myLock
 
@@ -327,10 +327,8 @@
                         ENgetnodeid(tankIndex(k), id)
                         id = id.Trim(Chr(0))
                         Call ENgetnodevalue(tankIndex(k), 8, water_level)
-                        Console.WriteLine("El tanke " + id + "tiene un nivel inicial de : " + CStr(water_level))
+                        Console.WriteLine("El tanque " + id + "tiene un nivel inicial de : " + CStr(water_level))
                     Next
-
-
 
                     j = j + 1
                 End If
