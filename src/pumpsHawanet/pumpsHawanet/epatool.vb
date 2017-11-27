@@ -210,8 +210,10 @@
     Dim pumpIndex(0) As Integer
     Dim tankIndex(0) As Integer
     Public Shared myLock As Object = New Object()
+
     ' Dim testing As Integer() = {0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1}
     Dim testing As Integer() = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    Dim maxTank As Double
 
     Sub New(ByVal inpPath As String)
 
@@ -270,7 +272,7 @@
 
     End Sub
 
-    Public Function getPressuresINP() As Double()
+    Public Function getPressuresINP(ByVal max As Double) As Double()
 
         SyncLock myLock
 
