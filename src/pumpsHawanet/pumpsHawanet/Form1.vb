@@ -17,7 +17,7 @@
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Dim epatoolclas As epatool = New epatool(TextBoxINP.Text)
         Dim presures As Double()
-        presures = epatoolclas.getPressuresINP(CDbl(TextBox1.Text), CDbl(TextBox2.Text))
+        presures = epatoolclas.getPressuresINP(CDbl(TextBox1.Text), CDbl(TextBox2.Text), CDbl(TextBox3.Text))
         epatoolclas.closeEpatool()
 
         'For i = 1 To presures.Length - 1

@@ -272,7 +272,7 @@
 
     End Sub
 
-    Public Function getPressuresINP(ByVal max As Double, ByVal min As Double) As Double()
+    Public Function getPressuresINP(ByVal max As Double, ByVal min As Double, ByVal timeInterval As Double) As Double()
 
         SyncLock myLock
 
@@ -281,14 +281,15 @@
             Dim t As Long
             Dim tstep As Long = 1
             Dim j = 0
-            Call getIdPumps()
-            Call getIdTanks()
             Dim status As Integer
             Dim water_level As Double
+            Dim pressures(num_nodes) As Double
+
+            Call getIdPumps()
+            Call getIdTanks()
 
             'Call ENsolveH()
             Call ENopenH()
-            Dim pressures(num_nodes) As Double
             Call ENinitH(0)
 
             For l = 0 To pumpIndex.Length - 1
@@ -300,7 +301,7 @@
             Do While tstep > 0
                 Call ENrunH(t)
 
-                If t Mod 3600 = 0 Then
+                If t Mod timeInterval = 0 Then
                     Console.WriteLine("t:" + CStr(t))
                     Console.WriteLine("")
                     Console.WriteLine("Hora: " + CStr(j))
