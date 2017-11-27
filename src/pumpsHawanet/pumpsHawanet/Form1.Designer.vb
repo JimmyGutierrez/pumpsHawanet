@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+
         Me.TextBoxINP = New System.Windows.Forms.TextBox()
         Me.BrowserINP = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -124,9 +125,9 @@ Partial Class Form1
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label4.Location = New System.Drawing.Point(482, 71)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(99, 13)
+        Me.Label4.Size = New System.Drawing.Size(98, 13)
         Me.Label4.TabIndex = 17
-        Me.Label4.Text = "Time interval (h)"
+        Me.Label4.Text = "Time interval (s)"
         '
         'Form1
         '
@@ -147,6 +148,12 @@ Partial Class Form1
         Me.Text = "Form1"
         Me.ResumeLayout(False)
         Me.PerformLayout()
+
+        Me.TextBoxINP.Text = "C:\Users\user\Desktop\REC\PERIODO 2017-2, UTALCA ingconstrucción\Memoria\EPANET's\news.inp"
+        Me.TextBox1.Text = "1"
+        Me.TextBox2.Text = "20"
+        Me.TextBox3.Text = "3600"
+
 
     End Sub
     Friend WithEvents TextBoxINP As System.Windows.Forms.TextBox
