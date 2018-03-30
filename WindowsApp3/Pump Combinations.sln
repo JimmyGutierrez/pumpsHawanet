@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PumpConbinations", "WindowsApp3\PumpConbinations.vbproj", "{7732A022-6341-43FE-84E5-8231A02F063E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7732A022-6341-43FE-84E5-8231A02F063E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7732A022-6341-43FE-84E5-8231A02F063E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7732A022-6341-43FE-84E5-8231A02F063E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7732A022-6341-43FE-84E5-8231A02F063E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {491CA99C-DC57-4B92-9EE3-AEA9B3018B7E}
+	EndGlobalSection
+EndGlobal
