@@ -1,9 +1,13 @@
 Datos sobre el modelo hidráulico
   - Cotas del reservorio 
-  - Cantidad y cotas de los nodos
+  - Cantidad y cotas de los  nods
   - Dimensiones de tuberías 
     - Materialidad
     - Diametro
     - Largo
   - Curvas caracteristicas de las bombas
   
+Sobre algoritmo evolutivo
+  -SPEA
+    -Operadores de cruce y mutación
+    -Operadores de selección
