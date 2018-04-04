@@ -1,0 +1,11 @@
+
+------------------------------------------------------------------   HISTORIAL DE AVANCE  ------------------------------------------------------------------
+
+Inicio del historial 4/4/2018 
+______________________________________________________________________________________________________________________________________________________________
+
+FECHA		DETALLE / ACTIVIDADES				ESTADO
+
+4-4-2018	REDACCIÓN DE CODIFICACIÓN y MODELIZACIÓN	En desarrollo (5%)
+4-4-2018	Seleción de operadores de AE			En espera (0%)
+4-4-2018	Adhesión de nuevo algoritmo SPEA		En espera (1%)
